@@ -1,11 +1,4 @@
-{"Message Hash":"88:0:HELLODAY","Message":"Hello there, how are on this fine day?","Message Number":0,"Message ID":8830096178}
-{"Message Hash":"86:0:HELLOTODAY","Message":"Hello mom, how are you today?","Message Number":0,"Message ID":8624978713}
-{"Message Hash":"75:1:HELLOGOLF","Message":"Hello dad, I really like golf!","Message Number":1,"Message ID":7505780175}
-{"Message Hash":"76:0:GOODYOU","Message":"good day to you","Message Number":0,"Message ID":7629182583}
-{"Message Hash":"35:0:HELLOTEST","Message":"Hello there i hope you are doing well","Message Number":1,"Message ID":7488117749}
-{"Message Hash":"32:0:HELLOTEST","Message":"hello please answer me","Message Number":1,"Message ID":1009239540}
-{"Message Hash":"50:0:HELLOME","Message":"Hello please answer me","Message Number":0,"Message ID":5090218688}
-{"Message Hash":"20:0:HELLOUS","Message":"Hello there can you hear us","Message Number":0,"Message ID":2035877056}
-{"Message Hash":"11:1:DJNVJDNDJNVJNDJ","Message":"djnvjdn djnvjndj","Message Number":1,"Message ID":1179001914}
-{"Message Hash":"66:0:HELLOTEST","Message":"Hello there, this is a refractor test","Message Number":0,"Message ID":6648325262}
-{"Message Hash":"87:0:HELLOTHERE","Message":"hello there","Message Number":0,"Message ID":8747938722}
+{"Message Hash":"57:0:HELLOTODAY","Sender":"kvdb_","Message":"Hello there, how are you today","Recipient":"+27609340418","Message Number":0,"Message ID":5721701739}
+{"Message Hash":"12:1:HIWELL","Sender":"kvdb_","Message":"Hi there, are you doing well","Recipient":"+27823956687","Message Number":1,"Message ID":1281785768}
+{"Message Hash":"94:2:HELLO,TOMMOROW","Sender":"kvdb_","Message":"Hello, are you coming tommorow","Recipient":"+27824630685","Message Number":2,"Message ID":9495963122}
+{"Message Hash":"49:0:HELLOYOU","Sender":"kvdb_","Message":"Hello there i am good and you","Recipient":"+27609340418","Message Number":0,"Message ID":4933725914}

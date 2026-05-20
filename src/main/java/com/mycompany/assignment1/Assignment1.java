@@ -10,7 +10,6 @@ package com.mycompany.assignment1;
  */
 import java.util.Scanner;
 public class Assignment1 {
-
     public static void main(String[] args) {
         startApplication();
     }
@@ -140,23 +139,25 @@ public class Assignment1 {
 
         if(match == true){
             NameAndSurname = account1.getNameAndSurname(loginUsername, loginPassword);
+            //Message message = new Message();
+            
         }
 
         System.out.println(account1.returnLoginStatus(match, NameAndSurname));
 
         if (match == true){
-            handleMessagingMenu(scanner);
+            handleMessagingMenu(scanner, loginUsername);
         }
     }
     
-    public static void handleMessagingMenu(Scanner scanner) {
+    public static void handleMessagingMenu(Scanner scanner, String loginUsername) {
         String InformationMessage = "";
         System.out.println("Would you like to:"
             + "\n[1] Send messages"
             + "\n[2] Show recently sent messages"
             + "\n[3] Quit");
         int messageChoice = scanner.nextInt();
-            
+        
         scanner.nextLine();
         String AllMessages = "";
         switch (messageChoice){
@@ -166,7 +167,7 @@ public class Assignment1 {
                 System.out.println("How many messages would you like to send:");
                 NumMessages = scanner.nextInt();
                 scanner.nextLine();
-                        
+                
                 Message message = new Message();
                         
                 for (int i = 0; i < NumMessages; i++){
@@ -227,7 +228,6 @@ public class Assignment1 {
                                     if (message.checkMessageID() == true){
                                         message.getFirstAndLastWord();
                                         String MessageHash = message.createMessageHash();
-                                                
                                         InformationMessage = InformationMessage + "\n" + "Message ID: " +
                                                 MessageID + "\nMessage Hash: " + MessageHash +
                                                 "\nRecipient: " + Cell + "\nMessage: " 
@@ -241,16 +241,14 @@ public class Assignment1 {
                                     break;
                                 case 2:
                                     System.out.println("Press 0 to delete the messages");
-                                    if (scanner.nextInt() == 0){
-                                        i--;
-                                        System.out.println(message.SentMessage(2));
-                                        break;
-                                    }
+                                    System.out.println("Message sucessfully deleted");
+                                    break;
                                 case 3:
-                                    message.genrateMessageID();
+                                    String messageHash;
+                                    String messageID = message.genrateMessageID();
                                     message.getFirstAndLastWord();
-                                    message.createMessageHash();
-                                    message.writeMessage();
+                                    messageHash = message.createMessageHash();
+                                    message.writeMessage(loginUsername);
                                     System.out.println(message.SentMessage(3));
                                     break;
                                 default:
@@ -265,10 +263,12 @@ public class Assignment1 {
                 System.out.println("==========================================================");
                 System.out.println("Total number of messages sent: " + message.returnTotalMessages());
                 System.out.println("==========================================================");
+                System.out.println(arrays.SentMessages);
+                System.out.println(arrays.DisregardedMessages);
                 break;
                             
             case 2:
-                System.out.println("Coming Soon");            
+                System.out.println("Coming Soon");
                 break;
             case 3:
                 System.out.println("Goodbye!");

@@ -16,6 +16,7 @@ import java.io.IOException;
 public class Message {
     int NumOfMessages = 0;
     String RecipientPhone = "";
+    String Sender = "";
     long MessageID;
     String MessageIDString = "";
     String MessageHash = "";
@@ -33,7 +34,7 @@ public class Message {
         NumOfMessages = numOfMessages;
     }
     
-  
+
     public String checkMessage(String Message){
         Text = Message;
         String lengthMessage = "";
@@ -116,7 +117,7 @@ public class Message {
        return(MessageHash);
     }
     
-    public void writeMessage(){
+    public void writeMessage(String Sender){
         try{
             JSONObject FileMessage = new JSONObject();
             
@@ -124,6 +125,8 @@ public class Message {
             FileMessage.put("Message ID", MessageID);
             FileMessage.put("Message Hash", MessageHash);
             FileMessage.put("Message", Text);
+            FileMessage.put("Recipient", RecipientPhone);
+            FileMessage.put("Sender", Sender);
             
             FileWriter file = new FileWriter("Messages.json", true);
             file.write(FileMessage.toString() + "\n");
