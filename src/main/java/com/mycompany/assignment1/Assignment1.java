@@ -14,7 +14,6 @@ public class Assignment1 {
         startApplication();
     }
     
-    
     public static void startApplication() {
         Scanner scanner = new Scanner(System.in);
 
@@ -152,132 +151,202 @@ public class Assignment1 {
     
     public static void handleMessagingMenu(Scanner scanner, String loginUsername) {
         String InformationMessage = "";
-        System.out.println("Would you like to:"
-            + "\n[1] Send messages"
-            + "\n[2] Show recently sent messages"
-            + "\n[3] Quit");
-        int messageChoice = scanner.nextInt();
-        
-        scanner.nextLine();
         String AllMessages = "";
-        switch (messageChoice){
-            case 1:
-                //Asks for number of messages
-                int NumMessages = 0;
-                System.out.println("How many messages would you like to send:");
-                NumMessages = scanner.nextInt();
-                scanner.nextLine();
-                
-                Message message = new Message();
+        String MessageID = "";
+        int messageChoice = 0;
+        
+        while (messageChoice != 4){
+            System.out.println("\nWould you like to:"
+                + "\n[1] Send messages"
+                + "\n[2] Show recently sent messages"
+                + "\n[3] Stored Messages"
+                + "\n[4] Quit");
+            
+            messageChoice = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch (messageChoice){
+                case 1:
+                    //Asks for number of messages
+                    int NumMessages = 0;
+                    System.out.println("How many messages would you like to send:");
+                    NumMessages = scanner.nextInt();
+                    scanner.nextLine();
+            
+                    Message message = new Message();
                         
-                for (int i = 0; i < NumMessages; i++){
-                    message.resetMessage();
+                    for (int i = 0; i < NumMessages; i++){
+                        message.resetMessage();
                                 
-                    //Asks for recipients phone number
-                    System.out.println("What is the phone number of the person you would like"
-                        + " to send the message to:");
-                    String RecipientPhone = scanner.nextLine();
+                        //Asks for recipients phone number
+                        System.out.println("What is the phone number of the person you would like"
+                            + " to send the message to:");
+                        String RecipientPhone = scanner.nextLine();
                                 
-                    message.checkRecipientCell(RecipientPhone);
-                    boolean RecipientPhoneValid = false;
-                    RecipientPhoneValid = message.PhoneValid;
+                        message.checkRecipientCell(RecipientPhone);
+                        boolean RecipientPhoneValid = false;
+                        RecipientPhoneValid = message.PhoneValid;
                         
-                    if (RecipientPhoneValid == false){
-                        while (RecipientPhoneValid == false){
+                        if (RecipientPhoneValid == false){
+                            while (RecipientPhoneValid == false){
+                                System.out.println(message.checkRecipientCell(RecipientPhone));
+                                System.out.println("What is the phone number of the person you would like"
+                                    + " to send the message to:");
+                                RecipientPhone = scanner.nextLine();
+                                message.checkRecipientCell(RecipientPhone);
+                                RecipientPhoneValid = message.PhoneValid;
+                            }
+                        } 
+                        boolean messageValid = false;
+                        
+                        if (RecipientPhoneValid == true){
                             System.out.println(message.checkRecipientCell(RecipientPhone));
-                            System.out.println("What is the phone number of the person you would like"
-                                + " to send the message to:");
-                            RecipientPhone = scanner.nextLine();
-                            message.checkRecipientCell(RecipientPhone);
-                            RecipientPhoneValid = message.PhoneValid;
-                        }
-                    } 
-                    boolean messageValid = false;
-                        
-                    if (RecipientPhoneValid == true){
-                        System.out.println(message.checkRecipientCell(RecipientPhone));
-                        System.out.println("What would you like to say:");
-                        String text = scanner.nextLine();
-                        System.out.println(message.checkMessage(text));
-                        messageValid = message.setMessageValid();
-                        
-                        while (message.setMessageValid() == false){
                             System.out.println("What would you like to say:");
-                            text = scanner.nextLine();
+                            String text = scanner.nextLine();
                             System.out.println(message.checkMessage(text));
                             messageValid = message.setMessageValid();
-                        }
+                        
+                            while (message.setMessageValid() == false){
+                                System.out.println("What would you like to say:");
+                                text = scanner.nextLine();
+                                System.out.println(message.checkMessage(text));
+                                messageValid = message.setMessageValid();
+                            }
                          
                                     
-                        if (messageValid == true){
-                            message.getNumOfMessages(i);
-                            System.out.println("What would you like to do with the message:"
-                                + "\n[1] Send Message"
-                                + "\n[2] Disregard Message"
-                                + "\n[3] Store Message to Send Later");
+                            if (messageValid == true){
+                                message.getNumOfMessages(i);
+                                System.out.println("What would you like to do with the message:"
+                                    + "\n[1] Send Message"
+                                    + "\n[2] Disregard Message"
+                                    + "\n[3] Store Message to Send Later");
                             
-                            int sendChoice = scanner.nextInt();
-                            scanner.nextLine();
-                                
-                            switch (sendChoice){
-                                case 1:
-                                    String MessageID = message.genrateMessageID();
-                                    String Cell = message.returnRecipientCell();
+                                int sendChoice = scanner.nextInt();
+                                scanner.nextLine();
+                                String MessageHash = "";
+                                Arrays arrays = new Arrays();
+                                switch (sendChoice){
+                                    case 1:
+                                        MessageID = message.genrateMessageID();
+                                        String Cell = message.returnRecipientCell();
                             
                                                 
-                                    if (message.checkMessageID() == true){
-                                        message.getFirstAndLastWord();
-                                        String MessageHash = message.createMessageHash();
-                                        InformationMessage = InformationMessage + "\n" + "Message ID: " +
+                                        if (message.checkMessageID() == true){
+                                            message.getFirstAndLastWord();
+                                            MessageHash = message.createMessageHash();
+                                            InformationMessage = InformationMessage + "\n" + "Message ID: " +
                                                 MessageID + "\nMessage Hash: " + MessageHash +
                                                 "\nRecipient: " + Cell + "\nMessage: " 
                                                 + message.returnMessage() + "\n";
                                                     
+                                            
+                                            
+                                            arrays.updateSentMessages(Cell, text);
+                                            System.out.println(InformationMessage);
+                                        }
+                                        System.out.println(message.SentMessage(1));
+                                        break;
+                                    case 2:
+                                        System.out.println("Press 0 to delete the messages");
+                                        int delete = scanner.nextInt();
+                                        scanner.nextLine();
                                         
-                                       
-                                        System.out.println(InformationMessage);
-                                    }
-                                    System.out.println(message.SentMessage(1));
-                                    break;
-                                case 2:
-                                    System.out.println("Press 0 to delete the messages");
-                                    System.out.println("Message sucessfully deleted");
-                                    break;
-                                case 3:
-                                    String messageHash;
-                                    String messageID = message.genrateMessageID();
-                                    message.getFirstAndLastWord();
-                                    messageHash = message.createMessageHash();
-                                    message.writeMessage(loginUsername);
-                                    System.out.println(message.SentMessage(3));
-                                    break;
-                                default:
-                                    System.out.println(message.SentMessage(4));
-                                    NumMessages--;
-                                    break;
+                                        if (delete == 0){
+                                            arrays.updateDisregardedMessages(MessageID, MessageHash, RecipientPhone, text);
+                                            System.out.println("Message has successfully been deleted");
+                                        } else {
+                                            System.out.println("Message was not deleted");
+                                            break;
+                                        }
+                                        
+                                        
+                                        break;
+                                    case 3:
+                                        String messageHash;
+                                        String messageID = message.genrateMessageID();
+                                        message.getFirstAndLastWord();
+                                        messageHash = message.createMessageHash();
+                                        message.writeMessage(loginUsername);
+                                        System.out.println(message.SentMessage(3));
+                                        arrays.updateSentMessages(RecipientPhone, text);
+                                        break;
+                                    default:
+                                        System.out.println(message.SentMessage(4));
+                                        NumMessages--;
+                                        break;
+                                }
                             }
-                        }
-                    }   
+                        }   
                            
-                }
-                System.out.println("==========================================================");
-                System.out.println("Total number of messages sent: " + message.returnTotalMessages());
-                System.out.println("==========================================================");
-                System.out.println(arrays.SentMessages);
-                System.out.println(arrays.DisregardedMessages);
-                break;
+                    }
+                    System.out.println("==========================================================");
+                    System.out.println("Total number of messages sent: " + message.returnTotalMessages());
+                    System.out.println("==========================================================");
+
+                    break;
                             
-            case 2:
-                System.out.println("Coming Soon");
-                break;
-            case 3:
-                System.out.println("Goodbye!");
-                System.exit(0);            
-                break;
-            default:
-                System.out.println("Error! Please select one of the given options!");            
-                break;
+                case 2:
+                    System.out.println("Coming Soon");
+                    break;
+                case 3:
+                    System.out.println("Would you like to:"
+                            + "\n[1] View all stored messages"
+                            + "\n[2] View longest message"
+                            + "\n[3] Search for a message using ID"
+                            + "\n[4] View all messages sent to a particular recipient"
+                            + "\n[5] Delete a message"
+                            + "\n[6] View report");
+                    
+                    int StoredChoice = scanner.nextInt();
+                    scanner.nextLine();
+                    
+                    Arrays arrays = new Arrays();
+                    
+                    switch(StoredChoice){
+                        case 1:
+                            arrays.populateSenderAndRecipients();
+                            System.out.println(arrays.SenderAndRecipients);
+                            break;
+                        case 2:
+                            System.out.println("The longest message is:");
+                            System.out.println(arrays.LongestMessage());
+                            break;
+                        case 3:
+                            System.out.println("What is the message ID of the message you wish to search:");
+                            long searchID = scanner.nextLong();
+                            
+                            System.out.println(arrays.searchMessage(String.valueOf(searchID)));
+                            break;
+                        case 4:
+                            System.out.println("What is the phone number of the recipient you wish to search:");
+                            String recipientPhone = scanner.nextLine();
+                            
+                            System.out.println(arrays.SearchRecipient(recipientPhone));
+                            break;
+                        case 5:
+                            System.out.println("Please provide the message hash of the message you would like to delete:");
+                            String messageHash = scanner.nextLine();
+                            
+                            System.out.println(arrays.DeleteMessage(messageHash));
+                            break;
+                        case 6:
+                            System.out.println(arrays.compileReport());
+                            break;
+                        default:
+                            System.out.println("Error! Please select one of the provided options");
+                            break;
+                    }
+                    break;
+                case 4:
+                    System.out.println("Goodbye!");
+                    System.exit(0);            
+                    break;
+                default:
+                    System.out.println("Error! Please select one of the given options!");            
+                    break;
+            }
         }
+        
     }
     
     

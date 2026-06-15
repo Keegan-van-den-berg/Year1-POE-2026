@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Files;
 public class Message {
     int NumOfMessages = 0;
     String RecipientPhone = "";
@@ -119,6 +121,11 @@ public class Message {
     
     public void writeMessage(String Sender){
         try{
+            Path path = Path.of("Messages.json");
+            
+            String content = Files.readString(path);
+            JSONArray messages = new JSONArray(content);
+            
             JSONObject FileMessage = new JSONObject();
             
             FileMessage.put("Message Number", NumOfMessages);
@@ -128,9 +135,8 @@ public class Message {
             FileMessage.put("Recipient", RecipientPhone);
             FileMessage.put("Sender", Sender);
             
-            FileWriter file = new FileWriter("Messages.json", true);
-            file.write(FileMessage.toString() + "\n");
-            file.close();
+            messages.put(FileMessage);
+            Files.writeString(path, messages.toString(4));
         }catch (IOException e){
             e.printStackTrace();
         }
